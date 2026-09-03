@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Credit Guard for Audible — Setup</title>
+<style>
+  :root { color-scheme: light dark; --line: rgba(128,128,128,.28); --dim: rgba(128,128,128,.09); }
+  body { font: 15px/1.55 system-ui, -apple-system, sans-serif; max-width: 640px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .lede { opacity: .7; margin: 0 0 28px; }
+  .step { border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .step[data-state="pending"] { opacity: .45; }
+  .step h2 { font-size: 15px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+         font-size: 12px; font-weight: 700; background: var(--dim); flex: none; }
+  .dot.ok { background: #2e7d32; color: #fff; }
+  .dot.bad { background: #c62828; color: #fff; }
+  .dot.warn { background: #ef6c00; color: #fff; }
+  .body { margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  td { padding: 5px 0; border-bottom: 1px solid var(--line); }
+  td:last-child { text-align: right; font-weight: 600; }
+  .hint { opacity: .65; font-size: 13px; }
+  label { display: block; margin: 10px 0 0; font-size: 13px; opacity: .8; }
+  input, select { font: inherit; padding: 5px 7px; margin-top: 3px; }
+  input[type=number] { width: 90px; }
+  button { font: inherit; padding: 8px 16px; cursor: pointer; border-radius: 7px;
+           border: 1px solid var(--line); background: var(--dim); }
+  button.primary { background: #1565c0; color: #fff; border-color: transparent; }
+  button:disabled { opacity: .45; cursor: default; }
+  .err { background: rgba(198,40,40,.13); padding: 10px 12px; border-radius: 7px; margin-top: 8px; }
+  .warn { background: rgba(239,108,0,.13); padding: 10px 12px; border-radius: 7px; margin-top: 8px; }
+  .good { background: rgba(46,125,50,.13); padding: 10px 12px; border-radius: 7px; margin-top: 8px; }
+  .actions { margin-top: 22px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .inline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+  code { background: var(--dim); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  footer { margin-top: 30px; font-size: 13px; opacity: .55; }
+</style>
+
+<h1>Credit Guard for Audible</h1>
+<p class="lede">A four-step dry run. Everything except one optional field is read from your
+own account page — you shouldn't have to type in dates you can already see there.
+Nothing is scheduled until this finishes.</p>
+
+<div class="step" id="s1">
+  <h2><span class="dot" id="d1">1</span> Your Audible site and session</h2>
+  <div class="hint">Pick the Audible site your membership is on. Chrome will ask whether this
+  extension may read that one site; nothing else is requested. It never asks for or stores a
+  password — it uses the Audible session already in this Chrome profile.</div>
+  <div class="inline">
+    <select id="market" aria-label="Audible site"></select>
+    <button class="primary" id="connect">Connect</button>
+  </div>
+  <div class="body" id="b1"></div>
+</div>
+
+<div class="step" id="s2" data-state="pending">
+  <h2><span class="dot" id="d2">2</span> What it reads from your account</h2>
+  <div class="body" id="b2">Waiting for step 1.</div>
+</div>
+
+<div class="step" id="s3" data-state="pending">
+  <h2><span class="dot" id="d3">3</span> Your situation</h2>
+  <div class="body" id="b3">Waiting for step 2.</div>
+</div>
+
+<div class="step" id="s4" data-state="pending">
+  <h2><span class="dot" id="d4">4</span> Can alerts actually reach you?</h2>
+  <div class="hint">Windows Focus Assist, macOS Focus, or Chrome's own notification settings can
+  swallow alerts silently. Better to find out now than in three months.</div>
+  <div class="body" id="b4">Waiting for step 3.</div>
+</div>
+
+<div class="actions">
+  <button class="primary" id="finish" disabled>Finish setup</button>
+  <button id="recheck" disabled>Run the dry run again</button>
+  <span class="hint" id="status"></span>
+</div>
+
+<footer>Credit Guard for Audible is an independent tool and is not affiliated with, endorsed by,
+or connected to Audible or Amazon. It stores everything on this computer and sends nothing anywhere.</footer>
+<script src="setup.js"></script>

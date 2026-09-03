@@ -1,0 +1,66 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Credit Guard for Audible</title>
+<style>
+  :root { color-scheme: light dark; --line: rgba(128,128,128,.28); }
+  * { box-sizing: border-box; }
+  body { font: 13px/1.45 system-ui, -apple-system, sans-serif; width: 352px; margin: 0; padding: 14px; }
+  h1 { font-size: 13px; margin: 0 0 10px; letter-spacing: .02em; text-transform: uppercase; opacity: .6; display: flex; justify-content: space-between; align-items: baseline; }
+  h1 small { font-weight: 400; text-transform: none; letter-spacing: 0; opacity: .8; }
+  h2 { font-size: 12px; margin: 14px 0 6px; opacity: .6; text-transform: uppercase; letter-spacing: .02em; }
+  .big { font-size: 30px; font-weight: 700; line-height: 1.05; }
+  .sub { opacity: .65; margin-bottom: 8px; }
+  .risk { color: #d32f2f; } .ok { color: #2e7d32; } .hold { color: #ef6c00; }
+  .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; }
+  .row span:first-child { opacity: .6; }
+  .msg { margin-top: 8px; padding: 9px 10px; border-radius: 7px; background: rgba(211,47,47,.12); }
+  .msg.info { background: rgba(128,128,128,.14); }
+  .msg.hold { background: rgba(239,108,0,.14); }
+  .bar { height: 7px; border-radius: 4px; background: rgba(128,128,128,.25); overflow: hidden; margin: 7px 0 4px; }
+  .bar > i { display: block; height: 100%; background: #ef6c00; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  td { padding: 2px 0; border-bottom: 1px solid var(--line); }
+  td:last-child { text-align: right; }
+  label { display: block; margin-top: 9px; opacity: .7; }
+  input { width: 100%; box-sizing: border-box; margin-top: 2px; }
+  input[type=number] { width: 80px; }
+  .btns { display: flex; gap: 6px; margin-top: 12px; }
+  button { flex: 1; padding: 7px; cursor: pointer; }
+  button.wide { width: 100%; margin-top: 10px; padding: 7px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 14px 0; }
+  details summary { cursor: pointer; opacity: .6; }
+  footer { margin-top: 12px; display: flex; justify-content: space-between; opacity: .55; font-size: 12px; }
+  footer a { color: inherit; }
+</style>
+<h1>Credit Guard for Audible <small id="market"></small></h1>
+<div id="out">Loading…</div>
+
+<div class="btns">
+  <button id="check">Check now</button>
+  <button id="act" hidden></button>
+</div>
+
+<h2>Observed at each accrual</h2>
+<table id="cycles"><tr><td colspan="3" style="opacity:.5">No cycles recorded yet.</td></tr></table>
+
+<details>
+  <summary>Settings</summary>
+  <label>Accrual day of month <input id="accrualDay" type="number" min="1" max="31"></label>
+  <label>Check this many days after <input id="checkOffsetDays" type="number" min="0" max="10"></label>
+  <label>Cap override (blank = infer) <input id="capOverride" type="number" min="1" placeholder="auto"></label>
+  <label>Max months per hold <input id="pauseMaxMonths" type="number" min="1" max="12"></label>
+  <label>Paid months required between holds <input id="minPaidMonthsBetweenPauses" type="number" min="0" max="12"></label>
+  <label>Hold started on <input id="holdStartedOn" type="date"></label>
+  <label>Resume date override <input id="resumeDateOverride" type="date"></label>
+  <label>Spend-down target override (blank = cap minus one accrual) <input id="spendTargetOverride" type="number" min="0" placeholder="auto"></label>
+  <label>While on hold, check every N days <input id="pausedCheckDays" type="number" min="1" max="30"></label>
+  <label>Reinstated-credit expiry date <input id="expiryWatchDate" type="date"></label>
+  <label>…how many <input id="expiryWatchCount" type="number" min="1" placeholder="e.g. 15"></label>
+  <button id="save" style="margin-top:12px">Save</button>
+</details>
+
+<footer>
+  <span>Not affiliated with Audible</span>
+  <a href="#" id="setup">Setup</a>
+</footer>
+<script src="popup.js"></script>

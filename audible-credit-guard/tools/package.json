@@ -1,0 +1,17 @@
+{
+  "name": "credit-guard-for-audible-tools",
+  "private": true,
+  "description": "Build, smoke-test and store-asset scripts for Credit Guard for Audible. Not shipped with the extension.",
+  "scripts": {
+    "test": "node ../test/test.js",
+    "smoke": "node smoke.js",
+    "assets": "node assets.js",
+    "video": "node video.js",
+    "build": "bash build.sh"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.0.0",
+    "ffmpeg-static": "^5.2.0",
+    "playwright": "1.56.1"
+  }
+}

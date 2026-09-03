@@ -1,0 +1,5 @@
+node_modules/
+**/tools/out/
+**/tools/frames/
+.DS_Store
+*.log

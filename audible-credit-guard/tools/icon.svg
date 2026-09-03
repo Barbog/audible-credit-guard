@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1B2E52"/>
+      <stop offset="1" stop-color="#0E1A30"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC44D"/>
+      <stop offset="1" stop-color="#F09019"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="29" fill="url(#bg)"/>
+
+  <!-- the stack: credits you hold, capped -->
+  <g>
+    <ellipse cx="64" cy="98" rx="35" ry="10.5" fill="#8A5A12"/>
+    <ellipse cx="64" cy="94" rx="35" ry="10.5" fill="url(#coin)"/>
+    <ellipse cx="64" cy="82" rx="35" ry="10.5" fill="#8A5A12"/>
+    <ellipse cx="64" cy="78" rx="35" ry="10.5" fill="url(#coin)"/>
+    <ellipse cx="64" cy="66" rx="35" ry="10.5" fill="#8A5A12"/>
+    <ellipse cx="64" cy="62" rx="35" ry="10.5" fill="url(#coin)"/>
+  </g>
+
+  <!-- the one going over the top: the credit you lose -->
+  <g transform="rotate(-22 88 36)" opacity="0.98">
+    <ellipse cx="88" cy="38" rx="28" ry="8.5" fill="#7A4E10"/>
+    <ellipse cx="88" cy="35" rx="28" ry="8.5" fill="#FFD98A"/>
+  </g>
+</svg>

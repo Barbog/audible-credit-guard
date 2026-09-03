@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Credit Guard for Audible",
+  "short_name": "Credit Guard",
+  "version": "1.1.0",
+  "description": "Warns you before Audible credits overflow your plan's cap and are lost, so you can spend or pause in time.",
+  "minimum_chrome_version": "116",
+  "author": "Barbog",
+  "homepage_url": "https://github.com/Barbog/ChromePlugins",
+  "permissions": [
+    "alarms",
+    "storage",
+    "notifications",
+    "scripting"
+  ],
+  "optional_host_permissions": [
+    "https://www.audible.co.uk/*",
+    "https://www.audible.com/*",
+    "https://www.audible.ca/*",
+    "https://www.audible.com.au/*",
+    "https://www.audible.in/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Credit Guard for Audible",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "options_page": "setup.html",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
