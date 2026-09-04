@@ -30,8 +30,9 @@ through that route; see HANDOFF.md §2.1.
 
 _Done on 4 Sept 2026 through the Playwright route (HANDOFF.md §3.9): item
 `jgplmokidgckjicacaojeabbolhodddp` exists as a Draft with every step below
-completed except the promo video URL. Steps 1–4 are kept for future versions;
-what is left today is step 5 and the two items under "Before you start"._
+completed except the promo video URL, and Submit for review is enabled. Steps
+1–5 are kept for future versions; what is left today is the video (optional)
+and step 9._
 
 1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.1.zip`
    as-is; don't unzip it. The console reads the name, summary, version and
@@ -50,8 +51,8 @@ what is left today is step 5 and the two items under "Before you start"._
 4. **Distribution tab.** Free; Public; all regions; Non-trader. Save draft.
 5. **Settings page** (once per publisher account): **Add email** under
    Profile, then click the verification link Google sends. Required before
-   anything can be submitted; not done as of 4 Sept 2026. The trader
-   declaration there is already set to non-trader.
+   anything can be submitted; done and verified on 4 Sept 2026. The trader
+   declaration there is set to non-trader.
 6. Look at the item's **Status** card. Every section should show a green tick.
    Anything amber is a field the console wants; it names it.
 7. **Preview** the listing (top right) and check it against the screenshots.

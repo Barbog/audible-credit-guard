@@ -24,13 +24,13 @@ expect it to go live when they press the release button.
 | Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
 | Upload package | `dist/credit-guard-for-audible-1.1.1.zip` (12 files, manifest at root). |
 | Store copy | `store/LISTING.md` — every console field, verbatim. |
-| Privacy policy | `store/PRIVACY.md` — written; the `main` URL is entered in the console but **returns 404 until the repo is public**. |
+| Privacy policy | `store/PRIVACY.md`, public at `https://github.com/Barbog/audible-credit-guard/blob/main/audible-credit-guard/store/PRIVACY.md` and entered in the console. |
 | Console walkthrough | `store/SUBMISSION.md`. |
 | Store icon | `store/icon-128.png` (96 px art on a transparent 128 px canvas). |
 | Screenshots | `store/screenshot-1..5.png`, 1280×800, 24-bit PNG. |
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
-| Store item in the developer console | **Created and filled, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. Submit is blocked only by things the owner must do; see §9. |
+| Store item in the developer console | **Created, filled and submittable, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished, package 1.1.1. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. **Submit for review is enabled**; nobody has pressed it. See §9. |
 | Repo | Renamed to **`Barbog/audible-credit-guard`** and made **public** on 4 Sept 2026 (MIT licence added; GitHub redirects the old `ChromePlugins` name). `main` is the default branch and matches the working branch. The owner's local folder is still named `ChromePlugins`. |
 
 ## 2. What could not be done, and why
@@ -300,11 +300,14 @@ Do, in order:
 - Created `main` from this branch. Did not change the default branch, repo
   visibility, or anything on the store.
 - Later the same day, with the owner signed in on the dedicated profile: the
-  console draft was created and filled end to end (§9). Not done, owner only:
-  make the repo public, add and verify the publisher contact email, upload the
-  video to YouTube and paste its URL, then submit with deferred publishing.
+  console draft was created and filled end to end (§9). Then the repo was
+  renamed to `audible-credit-guard`, given an MIT licence and made public,
+  the manifest bumped to 1.1.1 and the package replaced, the three console
+  URLs updated, and the owner verified the contact email. Submit for review is
+  enabled. Not done, owner only: upload the video to YouTube and paste its
+  URL (optional), then submit with deferred publishing.
 
-## 9. Console draft — what is in it and what still blocks submission (4 Sept 2026)
+## 9. Console draft — what is in it, and what cleared the blockers (4 Sept 2026)
 
 Filled through Playwright on the dedicated profile (§3.9) in about fifteen
 minutes. Nothing was submitted; the item is a Draft and the Submit for review
@@ -312,13 +315,13 @@ button was never pressed.
 
 | Tab | State |
 |---|---|
-| Package | `credit-guard-for-audible-1.1.0.zip` uploaded. The Package tab shows version 1.1.0, item type Extension, permissions `alarms, storage, notifications, scripting` (the optional host permissions are not listed there). "Verified CRX uploads" was left at its default (not opted in). |
-| Store listing | Description (2,361 chars), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage and support URLs, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
+| Package | `credit-guard-for-audible-1.1.1.zip` (replaced 1.1.0 after the repo rename changed `homepage_url`). The Package tab shows version 1.1.1, item type Extension, permissions `alarms, storage, notifications, scripting` (the optional host permissions are not listed there). "Verified CRX uploads" was left at its default (not opted in). |
+| Store listing | Description (2,361 chars), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage `https://github.com/Barbog/audible-credit-guard` and support `…/issues`, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
 | Privacy | Single purpose, four permission justifications (alarms, storage, notifications, scripting; the console asks nothing for optional host permissions), remote code **No** (the console defaults to Yes, watch for that on future versions), data usage Website content only, all three certifications ticked, privacy policy URL entered (the `main` GitHub URL). |
 | Distribution | Free of charge, Public, all regions, no Google Group. These were the defaults. |
-| Settings (publisher) | Trader declaration already non-trader. **No contact email added.** Postal address not entered (not in the blocker list). |
+| Settings (publisher) | Trader declaration non-trader. Contact email added and **verified** by the owner later the same day; publisher display name set to "Unkind Studios" by the owner. Postal address not entered (never in the blocker list). |
 
-The console's "Why can't I submit?" dialog listed exactly five blockers:
+Earlier that day the console's "Why can't I submit?" dialog listed five blockers:
 
 1. Homepage URL is not reachable.
 2. Support URL is not reachable.
@@ -328,9 +331,12 @@ The console's "Why can't I submit?" dialog listed exactly five blockers:
 4. A publisher contact email must be provided on the Settings page.
 5. That contact email must be verified.
 
-Items 1–3 clear together the moment the repository is public. Items 4–5 are
-Settings → Add email, then the verification link Google sends. After those
-five, the only cosmetic gap is the promo video, which is not required.
+Items 1–3 cleared when the repository was renamed to `audible-credit-guard`
+and made public (all three URLs return 200); items 4–5 cleared when the owner
+added and verified the contact email. After that the "Why can't I submit?"
+button disappeared and **Submit for review** became enabled (checked at the
+end of the session, still unpressed). The only gap left is the promo video,
+which is optional.
 
 Also noted on the dashboard: a banner "We're updating publisher extension
 limits" and a counter that read 0/2 before this item was created, so this
