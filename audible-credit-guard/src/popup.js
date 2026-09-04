@@ -133,6 +133,16 @@ async function load() {
     $("out").append(kind === "permission"
       ? button("Run setup", () => send({ type: "openSetup" }))
       : button(kind === "signedout" ? "Sign in to Audible" : "Open Audible", () => send({ type: "intent", intent: null })));
+    if (d.state?.reportUrl) {
+      // The page loaded but didn't parse: a pre-filled GitHub issue (numbers
+      // masked, nothing sent until the user submits there) is the fix path.
+      $("out").append(button("Report this on GitHub", () => chrome.tabs.create({ url: d.state.reportUrl })));
+      const why = document.createElement("div");
+      why.className = "sub";
+      why.style.marginTop = "6px";
+      why.textContent = "Verified on audible.co.uk; other sites are best-effort. The report opens pre-filled and you can edit it before submitting.";
+      $("out").append(why);
+    }
     if (d.state?.balance != null) {
       const note = document.createElement("div");
       note.className = "sub";

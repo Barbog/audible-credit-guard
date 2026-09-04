@@ -324,6 +324,33 @@ eq("same-origin query redirect -> ok", m.classifyResponse({ type: "basic", url: 
   const next = simulate({ from: new Date(2026, 9, 13), to: new Date(2026, 10, 12), outcome: () => ({ ok: true, atRisk: false }) });
   eq("next cycle: first read on the 13th again", next.map(x => x.day), ["2026-10-13"]);
 
+  // --- reporting a page that didn't parse: safe diagnostics, prefilled issue ---
+  {
+    const odd = `<html><head><title>Account details | Audible.com</title><script>var secret = 9999;</script></head>
+      <body><p>Hi Gary, we sent a receipt to gary@example.com.</p>
+      <p>Credits remaining: 15</p><p>Your membership renews on 12/25/2026 with 2 credits monthly.</p></body></html>`;
+    const d = m.diagnose(odd, m.market("com"), "mdy", NOW);
+    eq("diagnose: unknown wording -> balance not found", d.balanceFound, false);
+    eq("diagnose: page recognised as an account page", d.looksLikeAccount, true);
+    eq("diagnose: site named", d.site, "audible.com");
+    eq("diagnose: title kept", d.title, "Account details | Audible.com");
+    const dump = JSON.stringify(d);
+    eq("diagnose: no digits survive", /\d/.test(dump.replace(/"htmlLength":\d+/, "")), false);
+    eq("diagnose: e-mail removed", dump.includes("example.com"), false);
+    eq("diagnose: script body not quoted", dump.includes("secret"), false);
+    eq("diagnose: the unknown wording is quoted", d.snippets.some(s => s.includes("Credits remaining: ##")), true);
+    const url = m.reportUrl(d, "1.1.2", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/140.0.0.0 Safari/537.36");
+    eq("reportUrl: points at the repo's new-issue page", url.startsWith(m.REPO_URL + "/issues/new?"), true);
+    const params = new URL(url).searchParams;
+    eq("reportUrl: title names the site", params.get("title"), "Account page didn't parse on audible.com");
+    eq("reportUrl: label set", params.get("labels"), "parse-failure");
+    eq("reportUrl: body carries version and Chrome", /Credit Guard 1\.1\.2, Chrome 140\.0\.0\.0, Windows/.test(params.get("body")), true);
+    eq("reportUrl: body has no balance", params.get("body").includes("15"), false);
+    eq("reportUrl: comfortably under GitHub's limit", url.length < 6000, true);
+    const huge = m.diagnose("<p>membership</p>" + "credit ".repeat(4000), m.market("co.uk"));
+    eq("reportUrl: long pages still produce a bounded URL", m.reportUrl(huge, "x", "").length < 6000, true);
+  }
+
   console.log(fail ? `\n${fail} of ${count} FAILING` : `\nall ${count} checks passed`);
   process.exit(fail ? 1 : 0);
 })();

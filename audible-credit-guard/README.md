@@ -9,7 +9,7 @@ Free, local, no account. Not affiliated with Audible or Amazon.
 
 ```
 src/      the extension (this is what gets zipped and uploaded)
-test/     node test/test.js — 148 checks on scheduling, parsing, bookkeeping
+test/     node test/test.js — 163 checks on scheduling, parsing, bookkeeping, reporting
 tools/    build, headless smoke test, store-asset and video generators
 store/    listing copy, privacy policy, screenshots, tiles, promo video
 dist/     the uploadable zip

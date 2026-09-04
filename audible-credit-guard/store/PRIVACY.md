@@ -36,9 +36,21 @@ anywhere.
 
 ## What it sends
 
-Nothing. There is no server, no analytics, no telemetry, no crash reporting
-and no third-party service of any kind. The only network request the extension
-ever makes is to the Audible site you chose, for your own account page.
+Nothing on its own. There is no server, no analytics, no telemetry, no crash
+reporting and no third-party service of any kind. The only network request the
+extension ever makes is to the Audible site you chose, for your own account
+page.
+
+The one exception is something you start yourself. If the account page loads
+but the extension can't read it, it offers a **Report this on GitHub** button.
+Pressing it opens a new-issue page on GitHub in a tab, pre-filled with a
+summary the extension generated on your computer: which pieces of the page it
+could and couldn't find, a few short phrases from the page around the words
+"credit", "membership" and "bill" with every digit replaced by #, and the
+extension, Chrome and operating-system versions. E-mail addresses are removed.
+You can read and edit all of it on GitHub before pressing Submit there, and
+nothing is sent anywhere unless you do. Anything you submit is a public GitHub
+issue governed by GitHub's own privacy policy.
 
 ## Credentials
 

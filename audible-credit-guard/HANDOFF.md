@@ -20,7 +20,7 @@ expect it to go live when they press the release button.
 | Piece | State |
 |---|---|
 | Extension code (`src/`) | Rewritten and hardened. Version 1.1.1 (1.1.0 plus the renamed `homepage_url`). See §4 for what changed. |
-| Unit tests (`test/test.js`) | 148 checks, all passing. |
+| Unit tests (`test/test.js`) | 163 checks, all passing. |
 | Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
 | Upload package | `dist/credit-guard-for-audible-1.1.1.zip` (12 files, manifest at root). |
 | Store copy | `store/LISTING.md` — every console field, verbatim. |
@@ -202,11 +202,15 @@ expect it to go live when they press the release button.
 
 ## 5. Known gaps and risks
 
-- Marketplaces other than the UK are unverified (see 2.4). If a US/CA/AU/IN
-  page uses different wording, the user sees a loud "page didn't parse" error
-  in setup rather than a silent failure, and can file an issue. Consider
-  softening the listing to "designed for audible.co.uk; other English sites
-  supported on a best-effort basis" if that risk bothers you.
+- Marketplaces other than the UK are unverified (see 2.4). Since 1.1.2 the
+  listing says so ("verified on audible.co.uk, others best-effort"), and a
+  parse failure in setup or the popup offers **Report this on GitHub**: a
+  new-issue URL pre-filled by `diagnose()` and `reportUrl()` in
+  `background.js` with which markers matched and masked snippets of the page
+  wording. The issue lands with the `parse-failure` label;
+  `.github/ISSUE_TEMPLATE/parse-failure.md` covers manual reports. The privacy
+  policy and listing describe this as the one opt-in exception to "sends
+  nothing".
 - The "Official URL" field in the console needs a verified domain; GitHub
   cannot be verified. Leave it blank (the docs say so).
 - Notification buttons: Chrome allows at most two; every notification here uses

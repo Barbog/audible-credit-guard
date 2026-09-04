@@ -94,7 +94,17 @@ async function run() {
     } else if (p.kind === "markup") {
       box.append(el("b", null, "Signed in, but the page didn't parse."));
       box.append(el("div", null, p.error));
-      box.append(el("div", "hint", "Audible may have changed their account page, or this membership may be on a different Audible site than the one selected. Try another site above, or check for an update to this extension."));
+      box.append(el("div", "hint", "This extension was verified on audible.co.uk; the other English sites are supported on a best-effort basis. " +
+        "Audible may word this page differently on your site, or may have changed it, or this membership may be on a different Audible site than the one selected. " +
+        "Try another site above, or check for an update to this extension."));
+      if (p.reportUrl) {
+        box.append(el("div", "hint", "A report takes a minute and is usually what gets it fixed. It opens a GitHub issue pre-filled with what the parser " +
+          "could and couldn't find on the page, with every number masked. You can read and edit it before submitting; nothing is sent until you do."));
+        const rep = el("button", "primary", "Report this on GitHub");
+        rep.onclick = () => chrome.tabs.create({ url: p.reportUrl });
+        const row = el("div", "inline"); row.append(rep);
+        box.append(row);
+      }
     } else {
       box.append(el("b", null, "Couldn't reach Audible."));
       box.append(el("div", null, p.error || ""));

@@ -21,7 +21,7 @@ Credit Guard for Audible
 Warns you before Audible credits overflow your plan's cap and are lost, so you can spend or pause in time.
 ```
 
-**Description** (detailed description; the console counter shows a 16,000 character limit — this text is 2,361 characters):
+**Description** (detailed description; the console counter shows a 16,000 character limit — this text is 3,034 characters):
 
 ```
 Audible caps how many credits you can hold: 6 on a one-credit-a-month plan, 12 on a two-a-month plan. On the day your next credit lands, anything above that cap is forfeited — and Audible neither warns you beforehand nor tells you afterwards. If you have been letting credits pile up, you may already be losing one every month.
@@ -45,11 +45,11 @@ Audible sessions expire, especially if you rarely sign in — which is exactly t
 
 NO ACCOUNT, NO PASSWORD, NO SERVER
 
-It has no login of its own and never asks for your Audible or Amazon password. During setup you pick your Audible site and Chrome asks you to allow access to that one site only. Everything it reads and records stays in your browser. There is no server, no analytics and no third party.
+It has no login of its own and never asks for your Audible or Amazon password. During setup you pick your Audible site and Chrome asks you to allow access to that one site only. Everything it reads and records stays in your browser. There is no server, no analytics and no third party. The one exception is opt-in: if the page doesn't parse, a "Report this" button opens a GitHub issue pre-filled with what the parser could and couldn't find (every number masked), and nothing is sent unless you submit it there. The one exception is opt-in: if the page doesn't parse, a "Report this" button opens a GitHub issue pre-filled with what the parser could and couldn't find (every number masked), and nothing is sent unless you submit it there.
 
 SUPPORTED SITES
 
-audible.co.uk, audible.com, audible.ca, audible.com.au and audible.in. Other Audible sites print their account pages in other languages and are not supported yet.
+Built and verified on audible.co.uk. audible.com, audible.ca, audible.com.au and audible.in appear to use the same English wording and are supported on a best-effort basis: if your account page doesn't parse, setup says so plainly and offers a one-click report, and a fix is usually quick. Other Audible sites print their account pages in other languages and are not supported yet.
 
 OPEN SOURCE
 

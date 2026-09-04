@@ -27,7 +27,7 @@ audible-credit-guard/
 ## Commands (run from `audible-credit-guard/`)
 
 ```
-node test/test.js                 # 148 checks; must print "all N checks passed"
+node test/test.js                 # 163 checks; must print "all N checks passed"
 cd tools && npm install           # once per container (the SessionStart hook does this on the web)
 cd tools && npm run lint          # node --check over every script
 cd tools && node smoke.js         # loads src/ in headless Chromium: install, setup, popup, messaging
@@ -44,7 +44,7 @@ bash tools/build.sh               # runs tests, then builds dist/credit-guard-fo
   Store without the owner's explicit go-ahead in the current conversation.
   Creating and filling in a draft item is fine.
 - Bump `version` in `src/manifest.json` before building a zip that will be
-  uploaded; the store rejects a repeat version. Current store package: 1.1.1.
+  uploaded; the store rejects a repeat version. Current store package: 1.1.2.
 - Keep `node test/test.js` green and re-run `tools/smoke.js` after touching
   `src/`. Re-run `tools/assets.js` if the popup or setup page changed, since the
   screenshots are rendered from them.

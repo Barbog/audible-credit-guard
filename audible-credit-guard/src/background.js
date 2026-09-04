@@ -281,6 +281,108 @@ function parseOverview(html, order = "dmy", now = new Date()) {
   };
 }
 
+// ---------------- reporting a page that didn't parse ----------------
+
+const REPO_URL = "https://github.com/Barbog/audible-credit-guard";
+
+/** Pure. What the parser could and couldn't find on a page, in a form that is
+ *  safe to paste into a public bug report: no numbers (every digit is masked),
+ *  no e-mail addresses, and only short snippets around the words the parser
+ *  looks for. The parser was verified on audible.co.uk; when another site
+ *  words its account page differently, these snippets are what shows the
+ *  wording so the parser can be taught it. */
+function diagnose(html, mk = {}, order = "dmy", now = new Date()) {
+  const p = parseOverview(html, order, now);
+  const text = String(html)
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/g, " ")
+    .replace(/\s+/g, " ");
+  const scrub = s => s
+    .replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, "[email]")
+    .replace(/\d/g, "#");
+  const snippets = [];
+  const re = /credit|membership|next bill|paused|on hold/gi;
+  let m;
+  while ((m = re.exec(text)) && snippets.length < 8) {
+    const start = Math.max(0, m.index - 60);
+    const snip = scrub(text.slice(start, m.index + 70)).trim();
+    if (!snippets.some(s => s.includes(snip.slice(10, 40)))) snippets.push(snip);
+    re.lastIndex = m.index + 70;
+  }
+  const title = scrub((String(html).match(/<title[^>]*>([^<]*)<\/title>/i) || [, ""])[1].trim());
+  return {
+    site: mk.host || mk.id || "unknown",
+    title,
+    htmlLength: String(html).length,
+    looksLikeAccount: /next (?:bill|billing|credit) date|membership/i.test(html),
+    looksLikeSignIn: !!p.signedOut,
+    balanceFound: p.balance != null,
+    planFound: p.perMonth != null,
+    annual: !!p.annual,
+    creditDateFound: !!p.nextCreditDate,
+    billDateFound: !!p.nextBillDate,
+    holdDateFound: !!p.holdUntil,
+    pauseLinkPresent: !!p.pauseLinkPresent,
+    pausedLabel: !!(p.markers && p.markers.pausedLabel),
+    snippets
+  };
+}
+
+/** Pure. A GitHub "new issue" URL with the diagnosis already in the body. The
+ *  user sees the whole text on GitHub and can edit it before pressing Submit;
+ *  nothing leaves the browser until they do. Kept well under GitHub's query
+ *  string limit. */
+function reportUrl(diag, version = "?", ua = "") {
+  const yn = v => (v ? "yes" : "no");
+  const chrome_ = (ua.match(/Chrome\/([\d.]+)/) || [, "?"])[1];
+  const platform = /Windows/.test(ua) ? "Windows" : /Mac OS/.test(ua) ? "macOS" : /Linux/.test(ua) ? "Linux" : /CrOS/.test(ua) ? "ChromeOS" : "?";
+  const lines = [
+    `The account page on **${diag.site}** loaded but Credit Guard couldn't read it.`,
+    "",
+    "The extension generated everything below on this computer. Every digit is",
+    "masked and e-mail addresses are removed; please still read it before you",
+    "submit, and delete anything you'd rather not share.",
+    "",
+    "**Please add** (this is what makes the fix quick):",
+    "- [ ] Your plan: 1 credit a month / 2 a month / 12 a year / 24 a year / other",
+    "- [ ] Is the membership active or paused?",
+    "- [ ] A screenshot of the account overview page with your name and balance blurred",
+    "",
+    "**What the parser saw**",
+    "",
+    "| Check | Result |",
+    "|---|---|",
+    `| Site | ${diag.site} |`,
+    `| Page title | ${diag.title || "(none)"} |`,
+    `| Page looks like an account page | ${yn(diag.looksLikeAccount)} |`,
+    `| Page looks like a sign-in page | ${yn(diag.looksLikeSignIn)} |`,
+    `| Credit balance found | ${yn(diag.balanceFound)} |`,
+    `| Plan (credits per month/year) found | ${yn(diag.planFound)}${diag.annual ? " (annual)" : ""} |`,
+    `| Next credit date found | ${yn(diag.creditDateFound)} |`,
+    `| Next bill date found | ${yn(diag.billDateFound)} |`,
+    `| Hold-until date found | ${yn(diag.holdDateFound)} |`,
+    `| Pause link present | ${yn(diag.pauseLinkPresent)} |`,
+    `| "Paused" label present | ${yn(diag.pausedLabel)} |`,
+    `| Page size | ${Math.round(diag.htmlLength / 1024)} KB |`,
+    "",
+    "**Wording near the words the parser looks for** (numbers replaced with #)",
+    "",
+    ...(diag.snippets.length ? diag.snippets.map(s => `> ${s}`) : ["> (nothing matched)"]),
+    "",
+    `Credit Guard ${version}, Chrome ${chrome_}, ${platform}.`
+  ];
+  let body = lines.join("\n");
+  if (body.length > 3500) body = body.slice(0, 3480) + "\n…";
+  const q = new URLSearchParams({
+    title: `Account page didn't parse on ${diag.site}`,
+    labels: "parse-failure",
+    body
+  });
+  return `${REPO_URL}/issues/new?${q}`;
+}
+
 /** Plan caps, as Audible applies them: 6 for 1/month, 12 for 2/month, and one
  *  and a half times the annual allowance (18 for 12/year, 36 for 24/year). */
 function capFor(perMonth, override, annual = false) {
@@ -435,7 +537,13 @@ async function probe(capOverride = null, marketId = null) {
 
   const p = parseOverview(f.html, mk.order);
   if (p.signedOut) return { ok: false, kind: "signedout", marketId: mk.id, error: `Not signed in to ${mk.host} in this Chrome profile.` };
-  if (p.balance == null) return { ok: false, kind: "markup", marketId: mk.id, error: "Signed in, but the credit balance wasn't where expected on the account page." };
+  if (p.balance == null) {
+    const version = chrome.runtime.getManifest ? chrome.runtime.getManifest().version : "?";
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    return { ok: false, kind: "markup", marketId: mk.id,
+      error: "Signed in, but the credit balance wasn't where expected on the account page.",
+      reportUrl: reportUrl(diagnose(f.html, mk, mk.order), version, ua) };
+  }
 
   const cap = capFor(p.perMonth, capOverride, p.annual);
   const accrualDay = p.accrualDate ? parseInt(p.accrualDate.split("-")[2], 10) : null;
@@ -543,6 +651,7 @@ async function recordFailure(c, p, { phase, manual, days, cs, now }) {
              : (p.kind === "permission" || p.kind === "setup") ? "permission"
              : "error";
   const state = { ok: false, kind: p.kind, error: p.error, checkedAt: now, phase, manual };
+  if (p.reportUrl) state.reportUrl = p.reportUrl;
   const patch = { state, sessionState: kind, sessionCheckedAt: now, consecutiveFailures: (c.consecutiveFailures || 0) + 1 };
   if (cs) patch.cycleState = cs;
   await set(patch);
@@ -857,6 +966,7 @@ if (typeof module !== "undefined") {
     MARKETS, market, overviewUrl, originPattern, overviewPattern, guessMarket,
     toISO, fromISO, ukDate, iso, inferOrder, plausibleAccrual, nextAccrualDate, cycleKey, phaseFor, nextAction,
     parseOverview, capFor, pauseStatus, spendDown, dueBand, missedCycles, healthState,
-    classifyResponse, probe, daysBetween, longDate, ord
+    classifyResponse, probe, daysBetween, longDate, ord,
+    diagnose, reportUrl, REPO_URL
   };
 }

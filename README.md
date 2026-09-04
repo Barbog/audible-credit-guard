@@ -13,8 +13,10 @@ last call. While your membership is on hold it tracks the spend-down instead.
 - No account, no password, no server. Everything stays in your browser.
 - No site access at install. Setup asks which Audible site you use and Chrome
   prompts for that one site only.
-- Supported: audible.co.uk, audible.com, audible.ca, audible.com.au,
-  audible.in (English account pages).
+- Built and verified on audible.co.uk. audible.com, audible.ca,
+  audible.com.au and audible.in are supported on a best-effort basis; if your
+  account page doesn't parse, the extension says so and offers a one-click
+  report (see below).
 
 Chrome Web Store listing: coming soon. Until then, load `audible-credit-guard/src/`
 unpacked from `chrome://extensions` with Developer mode on.
@@ -24,7 +26,7 @@ unpacked from `chrome://extensions` with Developer mode on.
 ```
 audible-credit-guard/
   src/       the extension (manifest, service worker, setup and popup pages)
-  test/      node test/test.js — 148 unit checks, no dependencies
+  test/      node test/test.js — 163 unit checks, no dependencies
   tools/     smoke test, store-asset and promo-video renderers, build script
   store/     listing copy, privacy policy, icon, screenshots, tiles, video
   dist/      the zip uploaded to the Chrome Web Store
@@ -34,15 +36,20 @@ audible-credit-guard/
 ## Privacy
 
 The extension reads the text of your own Audible account page and keeps what
-it learns in `chrome.storage.local`. Nothing is transmitted anywhere. The full
+it learns in `chrome.storage.local`. Nothing is transmitted anywhere unless you
+press the opt-in report button on a parse failure, which opens a GitHub issue
+you review before submitting. The full
 policy is in [`audible-credit-guard/store/PRIVACY.md`](audible-credit-guard/store/PRIVACY.md).
 
 ## Issues and contributions
 
 Bug reports and pull requests are welcome on this repository. If Audible
-changes its account page and the extension stops parsing it, the popup and
-badge will say so loudly; please open an issue with your Audible site and
-plan type.
+changes its account page, or words it differently on your site, and the
+extension stops parsing it, the popup and badge say so loudly and offer a
+**Report this on GitHub** button. That opens a new issue pre-filled with what
+the parser could and couldn't find, every number masked, which you can edit
+before submitting. A screenshot of the account page with your name and
+balance blurred, plus your plan type, is what makes the fix quick.
 
 ## Licence
 
