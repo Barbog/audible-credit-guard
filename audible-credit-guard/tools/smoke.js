@@ -45,6 +45,16 @@ const ext = path.resolve(__dirname, "..", "src");
     const opts = await setupTab.$$eval("#market option", os => os.map(o => o.value));
     console.log("setup market options:", opts.join(", "), "| selected:", await setupTab.$eval("#market", s => s.value));
     if (opts.length !== 5) problems.push("expected 5 market options, got " + opts.length);
+    // Changing the site resets step 1; the controls in it must stay fully usable.
+    await setupTab.selectOption("#market", "co.uk");
+    const afterChange = await setupTab.evaluate(() => ({
+      s1: document.getElementById("s1").dataset.state,
+      connectDisabled: document.getElementById("connect").disabled,
+      opacity: getComputedStyle(document.getElementById("s1")).opacity
+    }));
+    console.log("after site change:", JSON.stringify(afterChange));
+    if (afterChange.s1 === "pending" || afterChange.opacity !== "1") problems.push("step 1 dimmed after a site change: " + JSON.stringify(afterChange));
+    if (afterChange.connectDisabled) problems.push("Connect disabled after a site change");
     const finishDisabled = await setupTab.$eval("#finish", b => b.disabled);
     if (!finishDisabled) problems.push("Finish should be disabled before a probe succeeds");
   }

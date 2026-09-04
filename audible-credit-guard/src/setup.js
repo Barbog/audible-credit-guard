@@ -6,7 +6,10 @@ const mark = (n, kind, glyph) => {
   const d = $("d" + n);
   d.className = "dot" + (kind ? " " + kind : "");
   d.textContent = glyph ?? n;
-  $("s" + n).dataset.state = kind ? "done" : "pending";
+  // Steps 2–4 dim until reached. Step 1 holds the site dropdown and Connect,
+  // so it must never dim: resetting it after a site change used to grey out
+  // the very controls the person needs next.
+  $("s" + n).dataset.state = kind ? "done" : n === 1 ? "active" : "pending";
 };
 const el = (tag, cls, text) => {
   const e = document.createElement(tag);

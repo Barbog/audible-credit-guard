@@ -34,7 +34,7 @@ completed except the promo video URL, and Submit for review is enabled. Steps
 1–5 are kept for future versions; what is left today is the video (optional)
 and step 9._
 
-1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.1.zip`
+1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.3.zip`
    as-is; don't unzip it. The console reads the name, summary, version and
    permissions from the manifest inside.
 2. **Store listing tab.** Paste the description from `LISTING.md`, choose the

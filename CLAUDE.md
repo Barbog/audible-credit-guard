@@ -44,7 +44,7 @@ bash tools/build.sh               # runs tests, then builds dist/credit-guard-fo
   Store without the owner's explicit go-ahead in the current conversation.
   Creating and filling in a draft item is fine.
 - Bump `version` in `src/manifest.json` before building a zip that will be
-  uploaded; the store rejects a repeat version. Current store package: 1.1.2.
+  uploaded; the store rejects a repeat version. Current store package: 1.1.3.
 - Keep `node test/test.js` green and re-run `tools/smoke.js` after touching
   `src/`. Re-run `tools/assets.js` if the popup or setup page changed, since the
   screenshots are rendered from them.
