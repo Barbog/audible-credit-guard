@@ -19,10 +19,10 @@ expect it to go live when they press the release button.
 
 | Piece | State |
 |---|---|
-| Extension code (`src/`) | Rewritten and hardened, version 1.1.0. See §4 for what changed. |
+| Extension code (`src/`) | Rewritten and hardened. Version 1.1.1 (1.1.0 plus the renamed `homepage_url`). See §4 for what changed. |
 | Unit tests (`test/test.js`) | 148 checks, all passing. |
 | Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
-| Upload package | `dist/credit-guard-for-audible-1.1.0.zip` (12 files, manifest at root). |
+| Upload package | `dist/credit-guard-for-audible-1.1.1.zip` (12 files, manifest at root). |
 | Store copy | `store/LISTING.md` — every console field, verbatim. |
 | Privacy policy | `store/PRIVACY.md` — written; the `main` URL is entered in the console but **returns 404 until the repo is public**. |
 | Console walkthrough | `store/SUBMISSION.md`. |
@@ -31,7 +31,7 @@ expect it to go live when they press the release button.
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
 | Store item in the developer console | **Created and filled, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. Submit is blocked only by things the owner must do; see §9. |
-| Repo | Everything committed and pushed to the branch above. Repo is **private**. `main` was created from this branch on 4 Sept 2026, so the `main` privacy URL resolves as soon as the repo is public. The default branch is still the working branch. |
+| Repo | Renamed to **`Barbog/audible-credit-guard`** and made **public** on 4 Sept 2026 (MIT licence added; GitHub redirects the old `ChromePlugins` name). `main` is the default branch and matches the working branch. The owner's local folder is still named `ChromePlugins`. |
 
 ## 2. What could not be done, and why
 
@@ -95,8 +95,8 @@ expect it to go live when they press the release button.
    file was added. `main` already exists and matches this branch, so the
    privacy URL in `store/LISTING.md` resolves the moment the repo is public:
    Settings → General → Danger Zone → Change visibility, or
-   `gh repo edit Barbog/ChromePlugins --visibility public --accept-visibility-change-consequences`.
-   Optionally make `main` the default branch: `gh repo edit Barbog/ChromePlugins --default-branch main`.
+   `gh repo edit Barbog/audible-credit-guard --visibility public --accept-visibility-change-consequences`.
+   Optionally make `main` the default branch: `gh repo edit Barbog/audible-credit-guard --default-branch main`.
 3. **Upload the video to YouTube** (Unlisted is fine) and keep the URL.
 4. **Create the draft in the console** following `store/SUBMISSION.md`. This
    one is yours; no Claude session can do it through a browser extension
@@ -121,7 +121,7 @@ expect it to go live when they press the release button.
    version, rebuild, re-upload. The tests cover the multi-market code, so
    trimming is safe.
 7. **After it is live:** put the store link in both READMEs, tag the commit
-   `v1.1.0`, and watch the console's reviews and the GitHub issues. The parser
+   `v1.1.1`, and watch the console's reviews and the GitHub issues. The parser
    is the fragile part; when Audible changes its markup the extension will say
    so loudly (badge, popup, notification), and users will file issues.
 8. **For future uploads from a container without a browser**, the Chrome Web
@@ -194,7 +194,9 @@ expect it to go live when they press the release button.
 - **Category: Shopping** (Productivity if the console shows the old list).
   Debatable; Workflow & Planning would also fit.
 - **Version 1.1.0** for the first store upload, to distinguish it from the 1.0.0
-  prototype installed unpacked on the owner's machine.
+  prototype installed unpacked on the owner's machine. Bumped to **1.1.1** the
+  same day when the repo was renamed, because `homepage_url` in the manifest
+  changed; the store package was replaced with 1.1.1.
 - **Annual plans**: parsed as "N credits a year", cap = 1.5 × N (18 for 12, 36
   for 24), per the owner's notes. Unverified against a real annual account.
 
@@ -244,7 +246,7 @@ Paste this into a new Claude Code session on this repository, filling in the
 two bracketed values if you have them:
 
 ```
-Repo Barbog/ChromePlugins, branch claude/chrome-extension-production-pzvr1v
+Repo Barbog/audible-credit-guard, branch claude/chrome-extension-production-pzvr1v
 (merge it to main first if you can). Start by reading CLAUDE.md and
 audible-credit-guard/HANDOFF.md; they describe the Chrome extension
 "Credit Guard for Audible" and exactly where the Chrome Web Store submission

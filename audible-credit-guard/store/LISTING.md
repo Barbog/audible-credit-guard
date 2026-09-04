@@ -83,15 +83,15 @@ console requires. (The icon is allowed, and encouraged, to have transparency.)
 
 ### Additional fields
 
-**Official URL:** `https://github.com/Barbog/ChromePlugins` — only accepted once
+**Official URL:** `https://github.com/Barbog/audible-credit-guard` — only accepted once
 that domain is verified in the console's Account tab, and GitHub can't be
 verified. Left as **None**; the description already points at GitHub. The
 dropdown does offer `barbon.ca` (already verified for this publisher), which
 could be selected later if that site ever hosts a page about the extension.
 
-**Homepage URL:** `https://github.com/Barbog/ChromePlugins`
+**Homepage URL:** `https://github.com/Barbog/audible-credit-guard`
 
-**Support URL:** `https://github.com/Barbog/ChromePlugins/issues`
+**Support URL:** `https://github.com/Barbog/audible-credit-guard/issues`
 
 **Mature content:** No
 
@@ -150,15 +150,15 @@ Then certify all three:
 - I do not use or transfer user data to determine creditworthiness or for lending purposes — **tick**
 
 **Privacy policy URL:**
-`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+`https://github.com/Barbog/audible-credit-guard/blob/main/audible-credit-guard/store/PRIVACY.md`
 — entered in the console on 4 Sept 2026. It returns 404 until the repository
 is public, and the console's submit check flags it (and the homepage and
 support URLs) as "not reachable" until then. Once the repo is public the
 URL is
-`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+`https://github.com/Barbog/audible-credit-guard/blob/main/audible-credit-guard/store/PRIVACY.md`
 (`main` exists since 4 September 2026). Once the repo is public the
 URL is
-`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+`https://github.com/Barbog/audible-credit-guard/blob/main/audible-credit-guard/store/PRIVACY.md`
 (`main` exists since 4 September 2026).
 
 ---

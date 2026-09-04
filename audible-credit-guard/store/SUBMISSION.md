@@ -18,9 +18,9 @@ through that route; see HANDOFF.md §2.1.
    "Website content" is declared under data usage (which it must be — the
    extension reads your account page). `PRIVACY.md` is ready; it just needs to
    be reachable without signing in. Pick one:
-   - Make the `Barbog/ChromePlugins` repository public (Settings → General →
+   - Make the `Barbog/audible-credit-guard` repository public (Settings → General →
      Danger Zone → Change visibility). The URL is then
-     `https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+     `https://github.com/Barbog/audible-credit-guard/blob/main/audible-credit-guard/store/PRIVACY.md`
      (`main` exists since 4 September 2026 and carries this branch).
    - Or paste `PRIVACY.md` into a public GitHub Gist and use the gist's URL.
 2. **Put the promo video on YouTube.** The console only accepts a YouTube
@@ -33,7 +33,7 @@ _Done on 4 Sept 2026 through the Playwright route (HANDOFF.md §3.9): item
 completed except the promo video URL. Steps 1–4 are kept for future versions;
 what is left today is step 5 and the two items under "Before you start"._
 
-1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.0.zip`
+1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.1.zip`
    as-is; don't unzip it. The console reads the name, summary, version and
    permissions from the manifest inside.
 2. **Store listing tab.** Paste the description from `LISTING.md`, choose the

@@ -2,11 +2,11 @@
   "manifest_version": 3,
   "name": "Credit Guard for Audible",
   "short_name": "Credit Guard",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Warns you before Audible credits overflow your plan's cap and are lost, so you can spend or pause in time.",
   "minimum_chrome_version": "116",
   "author": "Barbog",
-  "homepage_url": "https://github.com/Barbog/ChromePlugins",
+  "homepage_url": "https://github.com/Barbog/audible-credit-guard",
   "permissions": [
     "alarms",
     "storage",

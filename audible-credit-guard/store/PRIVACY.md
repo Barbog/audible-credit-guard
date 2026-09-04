@@ -60,7 +60,7 @@ anywhere else to delete.
 
 ## Contact
 
-Open an issue at https://github.com/Barbog/ChromePlugins/issues.
+Open an issue at https://github.com/Barbog/audible-credit-guard/issues.
 
 ## Not affiliated
 

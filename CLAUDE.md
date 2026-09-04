@@ -1,4 +1,9 @@
-# ChromePlugins — notes for Claude Code
+# audible-credit-guard — notes for Claude Code
+
+The GitHub repository was renamed from `Barbog/ChromePlugins` to
+`Barbog/audible-credit-guard` on 4 Sept 2026 (GitHub redirects the old name).
+The owner's local checkout folder is still called `ChromePlugins`; that is
+fine, only the remote changed.
 
 Read `audible-credit-guard/HANDOFF.md` before doing anything else: it records
 the state of the Chrome Web Store submission, what is blocked and why, and the
@@ -39,7 +44,7 @@ bash tools/build.sh               # runs tests, then builds dist/credit-guard-fo
   Store without the owner's explicit go-ahead in the current conversation.
   Creating and filling in a draft item is fine.
 - Bump `version` in `src/manifest.json` before building a zip that will be
-  uploaded; the store rejects a repeat version.
+  uploaded; the store rejects a repeat version. Current store package: 1.1.1.
 - Keep `node test/test.js` green and re-run `tools/smoke.js` after touching
   `src/`. Re-run `tools/assets.js` if the popup or setup page changed, since the
   screenshots are rendered from them.
