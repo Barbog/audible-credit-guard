@@ -28,6 +28,11 @@ through that route; see HANDOFF.md §2.1.
 
 ## In the console
 
+_Done on 4 Sept 2026 through the Playwright route (HANDOFF.md §3.9): item
+`jgplmokidgckjicacaojeabbolhodddp` exists as a Draft with every step below
+completed except the promo video URL. Steps 1–4 are kept for future versions;
+what is left today is step 5 and the two items under "Before you start"._
+
 1. **Items → New item.** Upload `../dist/credit-guard-for-audible-1.1.0.zip`
    as-is; don't unzip it. The console reads the name, summary, version and
    permissions from the manifest inside.
@@ -37,13 +42,16 @@ through that route; see HANDOFF.md §2.1.
    YouTube URL under Promo video. Fill the homepage and support URLs.
    Save draft.
 3. **Privacy tab.** Paste the single purpose, then a justification for each
-   permission the console lists (alarms, notifications, storage, scripting,
-   and the host permissions). All of them are in `LISTING.md`. Answer "No" to
-   remote code. Under data usage tick **Website content** only, then tick the
-   three certifications. Paste the privacy policy URL. Save draft.
+   permission the console lists (alarms, storage, notifications, scripting;
+   it does not ask about the optional host permissions). All of them are in
+   `LISTING.md`. Answer "No" to remote code — the console pre-selects
+   "Yes", so check it. Under data usage tick **Website content** only, then
+   tick the three certifications. Paste the privacy policy URL. Save draft.
 4. **Distribution tab.** Free; Public; all regions; Non-trader. Save draft.
-5. **Account tab** (once per account, may already be done): verified contact
-   email — required before anything can be submitted.
+5. **Settings page** (once per publisher account): **Add email** under
+   Profile, then click the verification link Google sends. Required before
+   anything can be submitted; not done as of 4 Sept 2026. The trader
+   declaration there is already set to non-trader.
 6. Look at the item's **Status** card. Every section should show a green tick.
    Anything amber is a field the console wants; it names it.
 7. **Preview** the listing (top right) and check it against the screenshots.

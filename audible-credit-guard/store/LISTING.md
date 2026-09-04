@@ -21,7 +21,7 @@ Credit Guard for Audible
 Warns you before Audible credits overflow your plan's cap and are lost, so you can spend or pause in time.
 ```
 
-**Description** (detailed description; the current docs publish no limit and the console shows its own counter — this text is 2,361 characters):
+**Description** (detailed description; the console counter shows a 16,000 character limit — this text is 2,361 characters):
 
 ```
 Audible caps how many credits you can hold: 6 on a one-credit-a-month plan, 12 on a two-a-month plan. On the day your next credit lands, anything above that cap is forfeited — and Audible neither warns you beforehand nor tells you afterwards. If you have been letting credits pile up, you may already be losing one every month.
@@ -85,7 +85,9 @@ console requires. (The icon is allowed, and encouraged, to have transparency.)
 
 **Official URL:** `https://github.com/Barbog/ChromePlugins` — only accepted once
 that domain is verified in the console's Account tab, and GitHub can't be
-verified. Leave it blank; the description already points at GitHub.
+verified. Left as **None**; the description already points at GitHub. The
+dropdown does offer `barbon.ca` (already verified for this publisher), which
+could be selected later if that site ever hosts a page about the extension.
 
 **Homepage URL:** `https://github.com/Barbog/ChromePlugins`
 
@@ -126,6 +128,10 @@ Used to register a single content script at runtime (chrome.scripting.registerCo
 ```
 
 **Host permissions** (`https://www.audible.co.uk/*`, `https://www.audible.com/*`, `https://www.audible.ca/*`, `https://www.audible.com.au/*`, `https://www.audible.in/*`)
+
+The console did not ask for this one (4 Sept 2026): optional host permissions
+get no justification field, only `alarms`, `storage`, `notifications` and
+`scripting` do. Keep the text for a reviewer question.
 ```
 All five Audible domains are declared as OPTIONAL host permissions; none is granted at install. During setup the user picks their Audible marketplace and Chrome prompts for that one origin only; any other grant is released. The permission is needed to fetch the signed-in user's own account overview page and read their credit balance, plan, next-credit date and hold status — data that exists nowhere else and for which Audible provides no API. The fetch happens on a monthly schedule tied to the accrual date (weekly while the membership is paused), plus when the user presses "Check now".
 ```
@@ -143,12 +149,11 @@ Then certify all three:
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose — **tick**
 - I do not use or transfer user data to determine creditworthiness or for lending purposes — **tick**
 
-**Privacy policy URL:** the public URL of `PRIVACY.md` in this folder. See
-`SUBMISSION.md` for the hosting options — the repository is private at the
-time of writing, so the URL isn't public yet. Once the repo is public the
-URL is
+**Privacy policy URL:**
 `https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
-(`main` exists since 4 September 2026). Once the repo is public the
+— entered in the console on 4 Sept 2026. It returns 404 until the repository
+is public, and the console's submit check flags it (and the homepage and
+support URLs) as "not reachable" until then. Once the repo is public the
 URL is
 `https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
 (`main` exists since 4 September 2026). Once the repo is public the

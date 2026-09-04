@@ -24,13 +24,13 @@ expect it to go live when they press the release button.
 | Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
 | Upload package | `dist/credit-guard-for-audible-1.1.0.zip` (12 files, manifest at root). |
 | Store copy | `store/LISTING.md` — every console field, verbatim. |
-| Privacy policy | `store/PRIVACY.md` — written; **not yet at a public URL** (repo is private). |
+| Privacy policy | `store/PRIVACY.md` — written; the `main` URL is entered in the console but **returns 404 until the repo is public**. |
 | Console walkthrough | `store/SUBMISSION.md`. |
 | Store icon | `store/icon-128.png` (96 px art on a transparent 128 px canvas). |
 | Screenshots | `store/screenshot-1..5.png`, 1280×800, 24-bit PNG. |
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
-| Store item in the developer console | **Not created.** Cannot be created by an extension-based browser tool at all; see §2.1. It is the owner's ten minutes with `store/SUBMISSION.md`. |
+| Store item in the developer console | **Created and filled, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. Submit is blocked only by things the owner must do; see §9. |
 | Repo | Everything committed and pushed to the branch above. Repo is **private**. `main` was created from this branch on 4 Sept 2026, so the `main` privacy URL resolves as soon as the repo is public. The default branch is still the working branch. |
 
 ## 2. What could not be done, and why
@@ -270,7 +270,8 @@ Do, in order:
 3. Otherwise do not try to log in to Google or guess: say so, do everything
    else you can (check the privacy URL is public, proof-read the listing
    against the current console field limits, update HANDOFF.md), and give me
-   the exact remaining steps.
+   the exact remaining steps. The item already exists (HANDOFF.md §9); open
+   it rather than creating a second one, and re-check "Why can't I submit?".
 4. Finish with: what changed, what you verified, what is still mine to do.
 ```
 
@@ -292,5 +293,33 @@ Do, in order:
   and this file record that the console cannot be automated via an extension.
 - Created `main` from this branch. Did not change the default branch, repo
   visibility, or anything on the store.
-- Not done, owner only: make the repo public (or gist the policy), upload the
-  video to YouTube, fill the console draft, submit with deferred publishing.
+- Later the same day, with the owner signed in on the dedicated profile: the
+  console draft was created and filled end to end (§9). Not done, owner only:
+  make the repo public, add and verify the publisher contact email, upload the
+  video to YouTube and paste its URL, then submit with deferred publishing.
+
+## 9. Console draft — what is in it and what still blocks submission (4 Sept 2026)
+
+Filled through Playwright on the dedicated profile (§3.9) in about fifteen
+minutes. Nothing was submitted; the item is a Draft and the Submit for review
+button was never pressed.
+
+| Tab | State |
+|---|---|
+| Package | `credit-guard-for-audible-1.1.0.zip` uploaded; the console took the title, summary and version from the manifest. |
+| Store listing | Description (2,361 chars), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage and support URLs, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
+| Privacy | Single purpose, four permission justifications (alarms, storage, notifications, scripting; the console asks nothing for optional host permissions), remote code **No** (the console defaults to Yes, watch for that on future versions), data usage Website content only, all three certifications ticked, privacy policy URL entered (the `main` GitHub URL). |
+| Distribution | Free of charge, Public, all regions, no Google Group. These were the defaults. |
+| Settings (publisher) | Trader declaration already non-trader. **No contact email added.** Postal address not entered (not in the blocker list). |
+
+The console's "Why can't I submit?" dialog listed exactly five blockers:
+
+1. Homepage URL is not reachable.
+2. Support URL is not reachable.
+3. Privacy policy link required (it is entered, but 404 while the repo is private).
+4. A publisher contact email must be provided on the Settings page.
+5. That contact email must be verified.
+
+Items 1–3 clear together the moment the repository is public. Items 4–5 are
+Settings → Add email, then the verification link Google sends. After those
+five, the only cosmetic gap is the promo video, which is not required.
