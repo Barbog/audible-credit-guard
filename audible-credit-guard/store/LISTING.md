@@ -21,7 +21,7 @@ Credit Guard for Audible
 Warns you before Audible credits overflow your plan's cap and are lost, so you can spend or pause in time.
 ```
 
-**Description** (detailed description, 16,000 character limit):
+**Description** (detailed description; the current docs publish no limit and the console shows its own counter — this text is 2,361 characters):
 
 ```
 Audible caps how many credits you can hold: 6 on a one-credit-a-month plan, 12 on a two-a-month plan. On the day your next credit lands, anything above that cap is forfeited — and Audible neither warns you beforehand nor tells you afterwards. If you have been letting credits pile up, you may already be losing one every month.
@@ -53,7 +53,7 @@ audible.co.uk, audible.com, audible.ca, audible.com.au and audible.in. Other Aud
 
 OPEN SOURCE
 
-The full source is on GitHub (see the official URL on this page). Issues and pull requests are welcome.
+The full source is on GitHub (see the website link on this page). Issues and pull requests are welcome.
 
 Credit Guard for Audible is an independent project and is not affiliated with, endorsed by or connected to Audible, Inc. or Amazon.com, Inc. Audible is a trademark of Audible, Inc.
 ```
@@ -145,7 +145,16 @@ Then certify all three:
 
 **Privacy policy URL:** the public URL of `PRIVACY.md` in this folder. See
 `SUBMISSION.md` for the hosting options — the repository is private at the
-time of writing, so the URL isn't public yet.
+time of writing, so the URL isn't public yet. Once the repo is public the
+URL is
+`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+(`main` exists since 4 September 2026). Once the repo is public the
+URL is
+`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+(`main` exists since 4 September 2026). Once the repo is public the
+URL is
+`https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
+(`main` exists since 4 September 2026).
 
 ---
 

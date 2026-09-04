@@ -1,7 +1,10 @@
 # Handoff — Credit Guard for Audible
 
 _Written 4 September 2026, at commit "Add Credit Guard for Audible, production-ready
-for the Chrome Web Store" on branch `claude/chrome-extension-production-pzvr1v`._
+for the Chrome Web Store" on branch `claude/chrome-extension-production-pzvr1v`.
+Updated later the same day from a local Claude Code session on the owner's
+Windows machine with the Claude in Chrome extension attached; see §2.1 for
+what that session found and §8 for its log._
 
 This is the document to read when picking the project up in a new container or a
 new chat. It says what exists, what was verified, what could not be done and why,
@@ -18,7 +21,7 @@ expect it to go live when they press the release button.
 |---|---|
 | Extension code (`src/`) | Rewritten and hardened, version 1.1.0. See §4 for what changed. |
 | Unit tests (`test/test.js`) | 148 checks, all passing. |
-| Headless smoke test (`tools/smoke.js`) | Passes: install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
+| Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
 | Upload package | `dist/credit-guard-for-audible-1.1.0.zip` (12 files, manifest at root). |
 | Store copy | `store/LISTING.md` — every console field, verbatim. |
 | Privacy policy | `store/PRIVACY.md` — written; **not yet at a public URL** (repo is private). |
@@ -27,21 +30,38 @@ expect it to go live when they press the release button.
 | Screenshots | `store/screenshot-1..5.png`, 1280×800, 24-bit PNG. |
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
-| Store item in the developer console | **Not created.** See §2. |
-| Repo | Everything committed and pushed to the branch above. Repo is **private**. No `main` branch existed when this was written; the branch is the only history. |
+| Store item in the developer console | **Not created.** Cannot be created by an extension-based browser tool at all; see §2.1. It is the owner's ten minutes with `store/SUBMISSION.md`. |
+| Repo | Everything committed and pushed to the branch above. Repo is **private**. `main` was created from this branch on 4 Sept 2026, so the `main` privacy URL resolves as soon as the repo is public. The default branch is still the working branch. |
 
 ## 2. What could not be done, and why
 
-1. **Creating the item in the Chrome Web Store developer console.** The Claude
-   Code web session had no browser connector to the owner's Chrome, and the
-   container's network policy blocked `chrome.google.com` (also `audible.*` and
-   `developer.chrome.com`). Logging into the owner's Google account from a
-   container without their session is not something to attempt anyway. So the
-   console work is the owner's, or a future session's *with a browser tool
-   attached to the owner's own Chrome*. Every value to paste is in
-   `store/LISTING.md`; the click-by-click order is in `store/SUBMISSION.md`.
+1. **Creating the item in the Chrome Web Store developer console.** Tried
+   twice, and the second attempt shows it cannot be automated this way:
+   - The Claude Code web session had no browser connector and the container
+     blocked `chrome.google.com` (also `audible.*` and `developer.chrome.com`).
+   - A local session on 4 Sept 2026 had the Claude in Chrome extension attached
+     to the owner's signed-in Chrome. It navigated to the console and the
+     dashboard loaded under the owner's account, but every tool call
+     (screenshot, page read, DOM find, JavaScript) failed with Chrome's own
+     error "The extensions gallery cannot be scripted". Chrome hard-codes that
+     block for every extension on `chrome.google.com/webstore/*`; it is not a
+     permission, login or network issue, and the console has no other host.
+     Clicking blind was not attempted because the owner's rule is never to
+     submit or publish without a go, and blind input could not honour it.
+   So no extension-based browser tool can fill the console. The only automated
+   routes left are (a) a DevTools-protocol driver (Playwright or Puppeteer,
+   already in `tools/`) launching a headed Chrome with a *dedicated* profile
+   directory that the owner signs into once — Chrome refuses remote debugging
+   on the default profile since Chrome 136 — which nobody has tried, or (b) the
+   Publish API (§3.8), which uploads zips but cannot edit listing text or
+   images. In practice the console fill is the owner's job: ten minutes with
+   `store/SUBMISSION.md` open, every value in `store/LISTING.md`.
 2. **Hosting the privacy policy publicly.** Requires either making the repo
    public or creating a public gist; both are the owner's call and were not done.
+   The console will not show an all-green status card without it: the store's
+   user-data policy (checked 4 Sept 2026 at developer.chrome.com/docs/webstore/user_data)
+   says products that handle user data must post a privacy policy and lists
+   "website content" as user data, which is what this extension declares.
 3. **Putting the video on YouTube.** The console accepts only a YouTube URL.
    Needs the owner's YouTube account.
 4. **Live verification against a signed-in Audible account.** `audible.*` was
@@ -71,11 +91,15 @@ expect it to go live when they press the release button.
    and points at GitHub for the source, the support URL and the privacy policy;
    none of that works while the repo is private. MIT is the obvious licence for
    a free tool you want people to use; it is your decision, so no `LICENSE`
-   file was added. Merge this branch into `main` so the privacy URL in
-   `store/LISTING.md` (which uses `main`) resolves, or use the branch URL.
+   file was added. `main` already exists and matches this branch, so the
+   privacy URL in `store/LISTING.md` resolves the moment the repo is public:
+   Settings → General → Danger Zone → Change visibility, or
+   `gh repo edit Barbog/ChromePlugins --visibility public --accept-visibility-change-consequences`.
+   Optionally make `main` the default branch: `gh repo edit Barbog/ChromePlugins --default-branch main`.
 3. **Upload the video to YouTube** (Unlisted is fine) and keep the URL.
-4. **Create the draft in the console** following `store/SUBMISSION.md`. It is
-   about ten minutes: new item, upload the zip, paste the listing, upload the
+4. **Create the draft in the console** following `store/SUBMISSION.md`. This
+   one is yours; no Claude session can do it through a browser extension
+   (§2.1). It is about ten minutes: new item, upload the zip, paste the listing, upload the
    nine graphics, paste the YouTube URL, fill the privacy tab (single purpose,
    five permission justifications, "no remote code", tick **Website content**
    only, three certifications, privacy URL), distribution tab (free, public,
@@ -163,13 +187,18 @@ expect it to go live when they press the release button.
   1.56.1 pinned to match the Chromium build under `/opt/pw-browsers` in the
   Claude Code web image; `ffmpeg-static`; Inter font files). The SessionStart
   hook in `.claude/hooks/session-start.sh` does this automatically on the web.
+- On the owner's Windows machine: `cd tools && npm install` then
+  `npx playwright install chromium` once (Playwright 1.56.1 wants Chromium
+  build 1194; the machine had only 1208 from another project). `smoke.js` now
+  resolves `playwright` from `tools/node_modules` unless `PLAYWRIGHT_MODULE`
+  is set, so it runs unchanged in both places. Done and passing on 4 Sept 2026.
 - `tools/assets.js` and `tools/video.js` render from `file://` pages so that
   the local Inter font loads; don't switch them to `setContent`, fonts silently
   fall back to DejaVu.
 - In the web container used so far: `registry.npmjs.org` and `github.com`
   reachable; `chrome.google.com`, `chromewebstore.google.com`, `audible.*`,
-  `developer.chrome.com` blocked. A session that needs the console needs a
-  browser connector to the owner's Chrome, not just network.
+  `developer.chrome.com` blocked. Locally everything is reachable, but the
+  console still cannot be driven through the Claude in Chrome extension (§2.1).
 - The original prototype (source, first store assets) came from chat session
   `cse_01Dz4obyxZWSxpwyyozuvesN` as three zips; everything relevant from them is
   now in this repo, so that chat should not be needed.
@@ -199,16 +228,36 @@ Do, in order:
    smoke.js. If you change anything in src/, bump the manifest version and
    rebuild with tools/build.sh, and regenerate assets with tools/assets.js if
    the popup or setup page changed.
-2. If this session has a browser tool connected to my own Chrome (with my
-   Google login), open https://chrome.google.com/webstore/devconsole and
-   create the item exactly as store/SUBMISSION.md and store/LISTING.md
-   describe: upload dist/credit-guard-for-audible-<version>.zip, paste the
-   listing, upload the icon, five screenshots and two tiles, paste the YouTube
-   URL, fill the Privacy and Distribution tabs. Stop before "Submit for
-   review" and tell me what the status card shows.
-3. If there is no browser access to my Chrome, do not try to log in to Google
-   or guess: say so, do everything else you can (check the privacy URL is
-   public, proof-read the listing against the current console field limits,
-   update HANDOFF.md), and give me the exact remaining steps.
+2. Do NOT try to drive https://chrome.google.com/webstore/devconsole through
+   the Claude in Chrome extension: Chrome blocks all extensions there
+   (HANDOFF.md §2.1, verified 4 Sept 2026). Only if you have a DevTools-
+   protocol driver on a Chrome profile I have signed into may you create the
+   item, exactly as store/SUBMISSION.md and store/LISTING.md describe, and
+   stop before "Submit for review" and tell me what the status card shows.
+3. Otherwise do not try to log in to Google or guess: say so, do everything
+   else you can (check the privacy URL is public, proof-read the listing
+   against the current console field limits, update HANDOFF.md), and give me
+   the exact remaining steps.
 4. Finish with: what changed, what you verified, what is still mine to do.
 ```
+
+## 8. Session log — 4 September 2026, local Windows session
+
+- Verified: `node test/test.js` (148 checks) and `tools/smoke.js` both pass on
+  the owner's machine after `npm install` and `npx playwright install chromium`.
+- Verified against the live docs: manifest description limit is 132 characters
+  (ours is 106); the listing docs publish no limit for the detailed description
+  or the privacy-tab fields (ours: description 2,361, single purpose 214,
+  justifications 276–591 characters); privacy policy is required because
+  website content is user data. Graphics re-checked from the PNG headers:
+  icon 128×128 RGBA, five screenshots 1280×800 RGB, tiles 440×280 and
+  1400×560 RGB, all 8-bit.
+- Changed: `tools/smoke.js` resolves Playwright from `tools/node_modules`;
+  listing copy now says "website link" instead of "official URL" (the Official
+  URL field is left blank, the Homepage URL is what the store shows); the
+  16,000-character claim was replaced with the measured length; SUBMISSION.md
+  and this file record that the console cannot be automated via an extension.
+- Created `main` from this branch. Did not change the default branch, repo
+  visibility, or anything on the store.
+- Not done, owner only: make the repo public (or gist the policy), upload the
+  video to YouTube, fill the console draft, submit with deferred publishing.

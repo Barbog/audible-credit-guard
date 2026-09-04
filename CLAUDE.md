@@ -51,6 +51,10 @@ bash tools/build.sh               # runs tests, then builds dist/credit-guard-fo
 - Work on branch `claude/chrome-extension-production-pzvr1v` unless told
   otherwise; never push elsewhere without permission.
 - Do not put model identifiers in commits, code, or docs.
+- The Chrome Web Store developer console cannot be driven through the Claude
+  in Chrome extension: Chrome blocks all extensions on
+  `chrome.google.com/webstore/*` ("The extensions gallery cannot be scripted").
+  Don't spend a session trying; see HANDOFF.md §2.1.
 - Network in the Claude Code web container used so far blocked
   chrome.google.com, audible.* and developer.chrome.com; registry.npmjs.org
   and github.com worked. Check before assuming.

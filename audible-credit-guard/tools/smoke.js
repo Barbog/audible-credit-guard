@@ -2,7 +2,7 @@
 // service worker starts, setup opens, the popup renders, and messaging works.
 // Run with: node tools/smoke.js
 const path = require("path");
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "/opt/node22/lib/node_modules/playwright");
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 
 const ext = path.resolve(__dirname, "..", "src");
 (async () => {

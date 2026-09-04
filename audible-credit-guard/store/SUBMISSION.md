@@ -6,6 +6,12 @@ can keep it from going live automatically (step 9).
 
 Console: https://chrome.google.com/webstore/devconsole
 
+This is a human job. Chrome blocks every extension, including browser-
+automation extensions such as Claude in Chrome, from reading or scripting
+anything under `chrome.google.com/webstore/*` ("The extensions gallery
+cannot be scripted"), so a Claude session cannot fill the console for you
+through that route; see HANDOFF.md §2.1.
+
 ## Before you start — two things only you can do
 
 1. **Host the privacy policy at a public URL.** The console requires one once
@@ -15,8 +21,7 @@ Console: https://chrome.google.com/webstore/devconsole
    - Make the `Barbog/ChromePlugins` repository public (Settings → General →
      Danger Zone → Change visibility). The URL is then
      `https://github.com/Barbog/ChromePlugins/blob/main/audible-credit-guard/store/PRIVACY.md`
-     once this branch is merged (or the same path with the branch name in
-     place of `main` until then).
+     (`main` exists since 4 September 2026 and carries this branch).
    - Or paste `PRIVACY.md` into a public GitHub Gist and use the gist's URL.
 2. **Put the promo video on YouTube.** The console only accepts a YouTube
    link. Upload `promo-video.mp4` (Unlisted is fine), copy the watch URL.
