@@ -99,10 +99,18 @@ languages and are deliberately unsupported rather than half-working.
 Nothing is scheduled until setup completes. Re-open setup any time from the
 popup's footer or from Details → Extension options on `chrome://extensions`.
 
+## Status and handoff
+
+`HANDOFF.md` records where the Chrome Web Store submission stands, what could
+not be done from a container and why, the decisions behind the current design,
+and a prompt for continuing in a new session. Read it first.
+
 ## Development
 
 ```
-cd tools && npm install          # playwright, ffmpeg-static, Inter (dev only)
+cd tools && npm install          # playwright, ffmpeg-static, Inter (dev only); the
+                                 # .claude SessionStart hook does this on Claude Code web
+npm run lint                     # node --check over every script
 node ../test/test.js             # unit checks
 node smoke.js                    # loads src/ in headless Chromium
 node assets.js                   # regenerates store/*.png from the real popup

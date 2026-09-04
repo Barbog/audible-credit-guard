@@ -3,6 +3,7 @@
   "private": true,
   "description": "Build, smoke-test and store-asset scripts for Credit Guard for Audible. Not shipped with the extension.",
   "scripts": {
+    "lint": "for f in ../src/*.js ../test/*.js *.js; do node --check \"$f\" || exit 1; done; echo lint ok",
     "test": "node ../test/test.js",
     "smoke": "node smoke.js",
     "assets": "node assets.js",
