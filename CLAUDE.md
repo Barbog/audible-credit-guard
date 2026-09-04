@@ -28,6 +28,7 @@ cd tools && npm run lint          # node --check over every script
 cd tools && node smoke.js         # loads src/ in headless Chromium: install, setup, popup, messaging
 cd tools && node assets.js        # regenerates store/*.png from the real popup and setup pages
 cd tools && node video.js         # renders store/promo-video.mp4 (~3 min); node video.js 2,9,22 previews seconds
+cd tools && node console.js       # opens the store developer console in Chrome on a dedicated profile (--check: print title and exit)
 bash tools/build.sh               # runs tests, then builds dist/credit-guard-for-audible-<version>.zip
 ```
 
@@ -54,7 +55,9 @@ bash tools/build.sh               # runs tests, then builds dist/credit-guard-fo
 - The Chrome Web Store developer console cannot be driven through the Claude
   in Chrome extension: Chrome blocks all extensions on
   `chrome.google.com/webstore/*` ("The extensions gallery cannot be scripted").
-  Don't spend a session trying; see HANDOFF.md §2.1.
+  Don't spend a session trying; see HANDOFF.md §2.1. The working route is
+  Playwright on a dedicated signed-in profile via `tools/console.js`
+  (HANDOFF.md §3.9).
 - Network in the Claude Code web container used so far blocked
   chrome.google.com, audible.* and developer.chrome.com; registry.npmjs.org
   and github.com worked. Check before assuming.

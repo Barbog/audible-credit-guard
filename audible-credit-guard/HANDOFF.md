@@ -52,10 +52,11 @@ expect it to go live when they press the release button.
    routes left are (a) a DevTools-protocol driver (Playwright, already in
    `tools/`) launching a headed Chrome with a *dedicated* profile
    directory that the owner signs into once — Chrome refuses remote debugging
-   on the default profile since Chrome 136 — which nobody has tried, or (b) the
-   Publish API (§3.8), which uploads zips but cannot edit listing text or
-   images. In practice the console fill is the owner's job: ten minutes with
-   `store/SUBMISSION.md` open, every value in `store/LISTING.md`.
+   on the default profile since Chrome 136 — written up as a recipe in §3.9
+   with `tools/console.js`, or (b) the Publish API (§3.8), which uploads zips
+   but cannot edit listing text or images. Otherwise the console fill is the
+   owner's job: ten minutes with `store/SUBMISSION.md` open, every value in
+   `store/LISTING.md`.
 2. **Hosting the privacy policy publicly.** Requires either making the repo
    public or creating a public gist; both are the owner's call and were not done.
    The console will not show an all-green status card without it: the store's
@@ -128,6 +129,34 @@ expect it to go live when they press the release button.
    it, but it cannot edit the listing text or images. It needs an OAuth client
    and refresh token that only you can create in Google Cloud Console. Worth
    setting up only if you expect frequent updates.
+9. **Letting a Claude session fill the console for you (Playwright route).**
+   This is the only automated way past the extension block in §2.1. Selenium
+   would work on the same principle (chromedriver also drives Chrome from
+   outside the extension system), but Playwright is already installed in
+   `tools/` with a matching browser, so use that.
+   1. Once, on the machine that will run the session: `cd audible-credit-guard/tools`,
+      `npm install`, `npx playwright install chromium` (already done on the
+      owner's Windows machine, 4 Sept 2026).
+   2. Once, as the owner: `node console.js`. It opens the installed Google
+      Chrome on a dedicated profile at `%LOCALAPPDATA%\cws-profile` (override
+      with `CWS_PROFILE`) and loads the developer console. Sign in to Google
+      in that window, confirm the dashboard shows your publisher account, then
+      close the window. The sign-in is saved in that profile directory. If
+      Google refuses with "this browser or app may not be secure", sign in
+      from a plain Chrome window on the same profile instead — the command is
+      in the header of `tools/console.js` — close it, and rerun the script.
+      `node console.js --check` prints the page title and exits, which is how
+      a session confirms the profile is still signed in.
+   3. In a Claude Code session on this machine, say so in the prompt (§7 step
+      2 already does). The session should drive the console with Playwright
+      on that same profile (`chromium.launchPersistentContext(profile,
+      { channel: "chrome", headless: false })`, exactly as `console.js`
+      does), follow `store/SUBMISSION.md` field by field with the values in
+      `store/LISTING.md`, take a screenshot after each tab is saved, and stop
+      before **Submit for review**. Playwright screenshots work on the console
+      because they come over the DevTools protocol, not an extension API.
+   4. Keep the profile directory private: it holds a signed-in Google session.
+      It is outside the repo. Delete it when the store work is finished.
 
 ## 4. Decisions made, and why (so they aren't accidentally reversed)
 
@@ -232,10 +261,12 @@ Do, in order:
    the popup or setup page changed.
 2. Do NOT try to drive https://chrome.google.com/webstore/devconsole through
    the Claude in Chrome extension: Chrome blocks all extensions there
-   (HANDOFF.md §2.1, verified 4 Sept 2026). Only if you have a DevTools-
-   protocol driver on a Chrome profile I have signed into may you create the
-   item, exactly as store/SUBMISSION.md and store/LISTING.md describe, and
-   stop before "Submit for review" and tell me what the status card shows.
+   (HANDOFF.md §2.1, verified 4 Sept 2026). Use the Playwright route in
+   HANDOFF.md §3.9 instead: run `node tools/console.js --check` to confirm the
+   dedicated profile is signed in [I have / have not signed in yet], then
+   drive the console with Playwright on that profile, create the item exactly
+   as store/SUBMISSION.md and store/LISTING.md describe, screenshot each tab,
+   and stop before "Submit for review" and tell me what the status card shows.
 3. Otherwise do not try to log in to Google or guess: say so, do everything
    else you can (check the privacy URL is public, proof-read the listing
    against the current console field limits, update HANDOFF.md), and give me
