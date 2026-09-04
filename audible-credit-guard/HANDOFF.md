@@ -19,7 +19,7 @@ expect it to go live when they press the release button.
 
 | Piece | State |
 |---|---|
-| Extension code (`src/`) | Rewritten and hardened. Version 1.1.1 (1.1.0 plus the renamed `homepage_url`). See §4 for what changed. |
+| Extension code (`src/`) | Rewritten and hardened. Version 1.1.2 (1.1.0 plus the renamed `homepage_url`, plus the parse-failure report; see §5). See §4 for what changed. |
 | Unit tests (`test/test.js`) | 163 checks, all passing. |
 | Headless smoke test (`tools/smoke.js`) | Passes (web container, and locally on Windows on 4 Sept 2026): install opens setup, no site access at install, probe refuses without a grant, popup renders every state, messaging works. |
 | Upload package | `dist/credit-guard-for-audible-1.1.1.zip` (12 files, manifest at root). |
@@ -30,7 +30,7 @@ expect it to go live when they press the release button.
 | Screenshots | `store/screenshot-1..5.png`, 1280×800, 24-bit PNG. |
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
-| Store item in the developer console | **Created, filled and submittable, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished, package 1.1.1. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. **Submit for review is enabled**; nobody has pressed it. See §9. |
+| Store item in the developer console | **Created, filled and submittable, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished, package 1.1.2. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. **Submit for review is enabled**; nobody has pressed it. See §9. |
 | Repo | Renamed to **`Barbog/audible-credit-guard`** and made **public** on 4 Sept 2026 (MIT licence added; GitHub redirects the old `ChromePlugins` name). `main` is the default branch and matches the working branch. The owner's local folder is still named `ChromePlugins`. |
 
 ## 2. What could not be done, and why
@@ -319,8 +319,8 @@ button was never pressed.
 
 | Tab | State |
 |---|---|
-| Package | `credit-guard-for-audible-1.1.1.zip` (replaced 1.1.0 after the repo rename changed `homepage_url`). The Package tab shows version 1.1.1, item type Extension, permissions `alarms, storage, notifications, scripting` (the optional host permissions are not listed there). "Verified CRX uploads" was left at its default (not opted in). |
-| Store listing | Description (2,361 chars), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage `https://github.com/Barbog/audible-credit-guard` and support `…/issues`, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
+| Package | `credit-guard-for-audible-1.1.2.zip` (1.1.1 replaced 1.1.0 after the repo rename changed `homepage_url`; 1.1.2 added the parse-failure report). The Package tab shows version 1.1.2, item type Extension, permissions `alarms, storage, notifications, scripting` (the optional host permissions are not listed there). "Verified CRX uploads" was left at its default (not opted in). |
+| Store listing | Description (3,034 chars; the 1.1.2 wording about UK verification, best-effort sites and the opt-in report), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage `https://github.com/Barbog/audible-credit-guard` and support `…/issues`, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
 | Privacy | Single purpose, four permission justifications (alarms, storage, notifications, scripting; the console asks nothing for optional host permissions), remote code **No** (the console defaults to Yes, watch for that on future versions), data usage Website content only, all three certifications ticked, privacy policy URL entered (the `main` GitHub URL). |
 | Distribution | Free of charge, Public, all regions, no Google Group. These were the defaults. |
 | Settings (publisher) | Trader declaration non-trader. Contact email added and **verified** by the owner later the same day; publisher display name set to "Unkind Studios" by the owner. Postal address not entered (never in the blocker list). |
