@@ -29,6 +29,7 @@ cd tools && node smoke.js         # loads src/ in headless Chromium: install, se
 cd tools && node assets.js        # regenerates store/*.png from the real popup and setup pages
 cd tools && node video.js         # renders store/promo-video.mp4 (~3 min); node video.js 2,9,22 previews seconds
 cd tools && node console.js       # opens the store developer console in Chrome on a dedicated profile (--check: print title and exit)
+cd tools && node console-drive.js # background driver for that profile: POST /eval, /shot, /quit on 127.0.0.1:9333 (HANDOFF.md 3.9)
 bash tools/build.sh               # runs tests, then builds dist/credit-guard-for-audible-<version>.zip
 ```
 

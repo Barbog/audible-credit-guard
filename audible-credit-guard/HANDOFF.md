@@ -148,13 +148,17 @@ expect it to go live when they press the release button.
       `node console.js --check` prints the page title and exits, which is how
       a session confirms the profile is still signed in.
    3. In a Claude Code session on this machine, say so in the prompt (§7 step
-      2 already does). The session should drive the console with Playwright
-      on that same profile (`chromium.launchPersistentContext(profile,
-      { channel: "chrome", headless: false })`, exactly as `console.js`
-      does), follow `store/SUBMISSION.md` field by field with the values in
-      `store/LISTING.md`, take a screenshot after each tab is saved, and stop
-      before **Submit for review**. Playwright screenshots work on the console
-      because they come over the DevTools protocol, not an extension API.
+      2 already does). The session runs `node console-drive.js` in the
+      background from `tools/` and talks to it over `127.0.0.1:9333`
+      (`/eval` with a Playwright snippet, `/shot` for a screenshot, `/quit`);
+      the header of that file lists the console's quirks that cost time the
+      first time (ids regenerate, the remote-code radio defaults to Yes, file
+      inputs are positional, the blockers dialog is only on some tabs, the
+      ten-minute cap on background tasks). Follow `store/SUBMISSION.md` field
+      by field with the values in `store/LISTING.md`, screenshot after each
+      Save draft, and stop before **Submit for review**. Playwright screenshots
+      work on the console because they come over the DevTools protocol, not
+      an extension API. This is how the draft was filled on 4 Sept 2026 (§9).
    4. Keep the profile directory private: it holds a signed-in Google session.
       It is outside the repo. Delete it when the store work is finished.
 
@@ -306,7 +310,7 @@ button was never pressed.
 
 | Tab | State |
 |---|---|
-| Package | `credit-guard-for-audible-1.1.0.zip` uploaded; the console took the title, summary and version from the manifest. |
+| Package | `credit-guard-for-audible-1.1.0.zip` uploaded. The Package tab shows version 1.1.0, item type Extension, permissions `alarms, storage, notifications, scripting` (the optional host permissions are not listed there). "Verified CRX uploads" was left at its default (not opted in). |
 | Store listing | Description (2,361 chars), category Shopping, language English (United Kingdom), icon, five screenshots, small and marquee tiles, homepage and support URLs, mature content off, Official URL None. **Promo video empty** (needs the YouTube URL). |
 | Privacy | Single purpose, four permission justifications (alarms, storage, notifications, scripting; the console asks nothing for optional host permissions), remote code **No** (the console defaults to Yes, watch for that on future versions), data usage Website content only, all three certifications ticked, privacy policy URL entered (the `main` GitHub URL). |
 | Distribution | Free of charge, Public, all regions, no Google Group. These were the defaults. |
@@ -316,10 +320,18 @@ The console's "Why can't I submit?" dialog listed exactly five blockers:
 
 1. Homepage URL is not reachable.
 2. Support URL is not reachable.
-3. Privacy policy link required (it is entered, but 404 while the repo is private).
+3. "Privacy policy link is not reachable." (Re-read after the URL was
+   entered and saved; the console sees the link, it just gets a 404 while the
+   repo is private.)
 4. A publisher contact email must be provided on the Settings page.
 5. That contact email must be verified.
 
 Items 1–3 clear together the moment the repository is public. Items 4–5 are
 Settings → Add email, then the verification link Google sends. After those
 five, the only cosmetic gap is the promo video, which is not required.
+
+Also noted on the dashboard: a banner "We're updating publisher extension
+limits" and a counter that read 0/2 before this item was created, so this
+publisher account can hold at most two extensions until Google raises it.
+The **Submit for review** button stayed greyed out throughout, so nothing
+could have been submitted by accident.
