@@ -30,7 +30,7 @@ expect it to go live when they press the release button.
 | Screenshots | `store/screenshot-1..5.png`, 1280×800, 24-bit PNG. |
 | Promo tiles | `store/small-tile-440x280.png`, `store/marquee-1400x560.png`. |
 | Promo video | `store/promo-video.mp4` (1280×720, 45 s, H.264) and `.webm`. **Not yet on YouTube.** |
-| Store item in the developer console | **Created, filled and submittable, 4 Sept 2026**, via the Playwright route (§3.9). Item ID `jgplmokidgckjicacaojeabbolhodddp`, status Draft, unpublished, package 1.1.3. Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. **Submit for review is enabled**; nobody has pressed it. See §9. |
+| Store item in the developer console | **Submitted for review by the owner on 4 Sept 2026** with deferred publishing (item is staged, not auto-published). Dashboard status: *Pending review*, version 1.1.3, item ID `jgplmokidgckjicacaojeabbolhodddp`. Filled via the Playwright route (§3.9). Every field on the Store listing, Privacy and Distribution tabs is filled except the promo video. **Submit for review is enabled**; nobody has pressed it. See §9. |
 | Repo | Renamed to **`Barbog/audible-credit-guard`** and made **public** on 4 Sept 2026 (MIT licence added; GitHub redirects the old `ChromePlugins` name). `main` is the default branch and matches the working branch. The owner's local folder is still named `ChromePlugins`. |
 
 ## 2. What could not be done, and why
@@ -312,6 +312,14 @@ Do, in order:
   URL (optional), then submit with deferred publishing.
 
 ## 9. Console draft — what is in it, and what cleared the blockers (4 Sept 2026)
+
+**Update, later on 4 Sept 2026:** the owner pressed Submit for review with
+"publish automatically" unticked. The dashboard shows *Pending review* for
+version 1.1.3. The console warns that items staged to be published later
+expire 30 days after passing review, so once the approval e-mail arrives the
+owner has 30 days to press Publish; otherwise it has to be resubmitted. Next
+steps after approval are §3.7. If the review comes back with questions, §3.6
+has the prepared answer on the optional host permissions.
 
 Filled through Playwright on the dedicated profile (§3.9) in about fifteen
 minutes. Nothing was submitted; the item is a Draft and the Submit for review
