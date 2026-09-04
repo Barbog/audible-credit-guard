@@ -49,8 +49,8 @@ expect it to go live when they press the release button.
      Clicking blind was not attempted because the owner's rule is never to
      submit or publish without a go, and blind input could not honour it.
    So no extension-based browser tool can fill the console. The only automated
-   routes left are (a) a DevTools-protocol driver (Playwright or Puppeteer,
-   already in `tools/`) launching a headed Chrome with a *dedicated* profile
+   routes left are (a) a DevTools-protocol driver (Playwright, already in
+   `tools/`) launching a headed Chrome with a *dedicated* profile
    directory that the owner signs into once — Chrome refuses remote debugging
    on the default profile since Chrome 136 — which nobody has tried, or (b) the
    Publish API (§3.8), which uploads zips but cannot edit listing text or
@@ -192,6 +192,8 @@ expect it to go live when they press the release button.
   build 1194; the machine had only 1208 from another project). `smoke.js` now
   resolves `playwright` from `tools/node_modules` unless `PLAYWRIGHT_MODULE`
   is set, so it runs unchanged in both places. Done and passing on 4 Sept 2026.
+  `npm run lint` fails under cmd.exe on Windows (the script is a bash loop);
+  run the same loop from Git Bash, or `bash -c "npm run lint"`.
 - `tools/assets.js` and `tools/video.js` render from `file://` pages so that
   the local Inter font loads; don't switch them to `setContent`, fonts silently
   fall back to DejaVu.
